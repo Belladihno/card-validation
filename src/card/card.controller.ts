@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode } from '@nestjs/common';
 import { CardService } from './card.service';
 import { ValidateCardDto } from './dto/validate-card.dto';
 
@@ -6,8 +6,9 @@ import { ValidateCardDto } from './dto/validate-card.dto';
 export class CardController {
   constructor(private readonly cardService: CardService) {}
 
-  @Post()
-  create(@Body() createCardDto: ValidateCardDto) {
-    return this.cardService.validate(createCardDto);
+  @Post('validate')
+  @HttpCode(200)
+  validate(@Body() dto: ValidateCardDto) {
+    return this.cardService.validate(dto.cardNumber);
   }
 }

@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { CardType, detectCardType } from './utils/card-type';
 import { isValidLuhn } from './utils/luhn';
 
-interface ValidationResult {
+export interface ValidationResult {
   isValid: boolean;
   cardType: CardType | null;
   reason?: string;
