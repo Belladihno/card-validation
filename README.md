@@ -1,114 +1,153 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Card Validation API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A REST API that validates card numbers using the Luhn algorithm and detects the card type.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## Getting Started
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### Prerequisites
 
-## Project setup
+- Node.js v18 or higher
+- pnpm
+
+### Installation
 
 ```bash
-$ pnpm install
+pnpm install
 ```
 
-## Compile and run the project
+### Run in development
 
 ```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+pnpm run start:dev
 ```
 
-## Run tests
+The server starts on `http://localhost:3000`.
+
+---
+
+## Running Tests
+
+### Unit tests
 
 ```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+pnpm run test
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### Integration tests
 
 ```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+pnpm run test:e2e
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
 
-## Observability
+## The Endpoint
 
-In production applications, observability is essential for understanding how your system behaves, detecting issues early, and maintaining reliable performance.
+POST /card/validate
+Content-Type: application/json
 
-[NestJS Observe](https://observe.nestjs.com) automatically instruments your NestJS application, giving you deep visibility into your system with minimal setup:
 
-- **Distributed tracing:** Follow requests across services and understand how they flow through your system.
-- **Waterfall analysis:** Visualize request execution and identify slow operations, bottlenecks, and unexpected delays.
-- **Performance analysis:** Analyze application performance in real time and quickly pinpoint areas that need optimization.
-- **Metrics:** Track key application and infrastructure metrics to understand system health and performance trends.
-- **Logging:** Centralize and correlate logs with traces and other telemetry to make debugging easier.
-- **Error tracking:** Detect errors quickly and investigate their root causes with the surrounding context.
-- **SLA monitoring:** Track service-level objectives and identify when your application is approaching or exceeding defined thresholds.
-- **Alarms and alerts:** Set up alerts for critical errors, performance degradation, SLA violations, and other anomalies so your team can react quickly.
+### Request body
 
-## Resources
+```json
+{
+  "cardNumber": "4111 1111 1111 1111"
+}
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+`cardNumber` must be a non-empty string. Spaces and dashes are stripped automatically before validation. Any other non-digit character is rejected.
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Auto-instrument your application with [NestJS Observer](https://observer.nestjs.com). Distributed tracing, metrics, and logging made easy. Error tracking and performance monitoring for your NestJS applications.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### Responses
 
-## Support
+**Valid card — `200 OK`**
+```json
+{
+  "isValid": true,
+  "cardType": "visa"
+}
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+**Invalid card — `200 OK`**
+```json
+{
+  "isValid": false,
+  "cardType": null,
+  "reason": "Failed Luhn check"
+}
+```
 
-## Stay in touch
+**Malformed input — `400 Bad Request`**
+```json
+{
+  "statusCode": 400,
+  "message": "cardNumber must contain digits only (spaces and dashes are allowed)"
+}
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+**Missing field — `400 Bad Request`**
+```json
+{
+  "statusCode": 400,
+  "message": ["cardNumber should not be empty", "cardNumber must be a string"]
+}
+```
 
-## License
+### HTTP status code decisions
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+| Scenario | Status |
+|---|---|
+| Card passes or fails validation | `200` |
+| Non-digit characters in input | `400` |
+| Missing or wrong type for `cardNumber` | `400` |
+| Unexpected server error | `500` |
+
+A card that fails Luhn returns `200`, not `400` — the request was valid, the card just did not pass. A `400` means the client sent something malformed that could never be a card number.
+
+---
+
+## Design Decisions
+
+### Why NestJS over Express
+
+NestJS enforces a clear separation between the controller, service, and module from the start. For an assessed project where code structure is explicitly evaluated, that structure matters. Express gives you freedom — NestJS gives you a pattern to follow and defend.
+
+### Validation approach — the Luhn algorithm
+
+The Luhn algorithm is the industry standard checksum used to validate card numbers. It catches typos and transcription errors without making a network call. I implemented it from scratch rather than using a third-party package so the logic is fully visible and explainable.
+
+### Why the service throws for non-digits but returns `isValid: false` for Luhn failure
+
+These are two different problems. A card number containing letters like `4111abc1111` is malformed input — it can never be a card number regardless of any algorithm. That is a client error and gets a `400`. A number that is all digits but fails Luhn is a legitimate request that produced a negative result. That gets a `200` with `isValid: false`.
+
+### Why card type detection checks Verve before Discover
+
+Both Verve and Discover use prefixes starting with `6`. If Discover was checked first, a Verve card starting with `6500` could match the Discover `65` pattern incorrectly. More specific prefixes are always checked before broader ones.
+
+### Why the Luhn function is pure
+
+The Luhn utility takes a string and returns a boolean. No dependencies, no side effects. Pure functions are trivially testable and trivially explainable — you call them with input and assert the output. The same applies to the card type detection function.
+
+### Request body validation — DTO with class-validator
+
+The `ValidateCardDto` uses `@IsString()` and `@IsNotEmpty()` decorators from `class-validator`. The global `ValidationPipe` is configured with `whitelist: true` and `forbidNonWhitelisted: true` — unknown fields are rejected outright rather than silently stripped. This keeps the API surface strict and predictable.
+
+---
+
+## Manual Test
+
+```bash
+curl -X POST http://localhost:3000/card/validate \
+  -H "Content-Type: application/json" \
+  -d '{"cardNumber": "4111 1111 1111 1111"}'
+```
+
+Expected response:
+
+```json
+{
+  "isValid": true,
+  "cardType": "visa"
+}
+```
